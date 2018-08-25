@@ -15,7 +15,7 @@
   :type '(repeat string)
   :group 'SQL)
 
-(defun sql-comint-prestodb (product options &optional buffer-name)
+(defun sql-prestodb-comint (product options &optional buffer-name)
   "Connect to PrestoDB in a comint buffer.
 
 `product' is the sql product (prestodb). `options' are any
@@ -25,7 +25,7 @@ additional options to pass to prestodb-shell."
                         (unless (string= "" sql-database)
                           `("--catalog" sql-database))
                         options)))
-    (setenv "PAGER" "cat")
+    ;; See: https://github.com/prestodb/presto/issues/2907
     (setenv "PRESTO_PAGER" "cat")
     (sql-comint product params buffer-name)))
 
@@ -37,10 +37,13 @@ The buffer with name `buffer' will be used or created."
   (sql-product-interactive 'prestodb buffer))
 
 (sql-add-product 'prestodb "PrestoDB"
-                 :prompt-regexp "^presto> "
-                 :prompt-cont-regexp "^\\* "
-                 :prompt-length 8
-                 :sqli-comint-func 'sql-comint-prestodb
+                 :free-software t
+                 :list-all "SHOW TABLES;"
+                 :list-table "DESCRIBE %s;"
+                 :prompt-regexp "^[^>]*> "
+                 :prompt-cont-regexp "^[ ]+-> "
+                 :sqli-comint-func 'sql-prestodb-comint
+                 :font-lock sql-mode-ansi-font-lock-keywords
                  :sqli-login sql-prestodb-login-params
                  :sqli-program 'sql-prestodb-program
                  :sqli-options 'sql-prestodb-options)
