@@ -10,7 +10,7 @@
   :type 'sql-login-params
   :group 'SQL)
 
-(defcustom sql-prestodb-options '()
+(defcustom sql-prestodb-options '("--output-format" "CSV_HEADER")
   "List of options for `sql-prestodb-program'."
   :type '(repeat string)
   :group 'SQL)
@@ -18,8 +18,9 @@
 (defun sql-prestodb-comint (product options &optional buffer-name)
   "Connect to PrestoDB in a comint buffer.
 
-`product' is the sql product (prestodb). `options' are any
-additional options to pass to prestodb-shell."
+PRODUCT is the sql product (prestodb). OPTIONS are any additional
+options to pass to prestodb-shell. BUFFER-NAME is what you'd like
+the SQLi buffer to be named."
   (let ((params (append (unless (string= "" sql-server)
                           `("--server" ,sql-server))
                         (unless (string= "" sql-database)
@@ -32,7 +33,7 @@ additional options to pass to prestodb-shell."
 (defun sql-prestodb (&optional buffer)
   "Run PrestoDB as an inferior process.
 
-The buffer with name `buffer' will be used or created."
+The buffer with name BUFFER will be used or created."
   (interactive "P")
   (sql-product-interactive 'prestodb buffer))
 
@@ -43,7 +44,7 @@ The buffer with name `buffer' will be used or created."
                  :prompt-regexp "^[^>]*> "
                  :prompt-cont-regexp "^[ ]+-> "
                  :sqli-comint-func 'sql-prestodb-comint
-                 :font-lock sql-mode-ansi-font-lock-keywords
+                 :font-lock 'sql-mode-ansi-font-lock-keywords
                  :sqli-login sql-prestodb-login-params
                  :sqli-program 'sql-prestodb-program
                  :sqli-options 'sql-prestodb-options)
