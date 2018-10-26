@@ -1,7 +1,11 @@
-;;; sql-prestodb --- Adds Presto support to Emacs's SQLi mode.
+;;; sql-presto.el --- Adds Presto support to SQLi mode. -*- lexical-binding: t -*-
+
+;; Copyright (C) since 2018 Katherine Cox-Buday
+
+;; Version: 1.0.0
+;; Keywords: sql presto database
 
 ;;; Commentary:
-
 
 
 ;; * What is it?
@@ -17,9 +21,13 @@
 ;;   The canonical repository for the source code is
 ;;   [https://github.com/kat-co/sql-prestodb].
 
-;;   I am working on getting this into MEPLA (and perhaps ELPA). For now,
-;;   clone the repo, open src/sql-prestodb.el in Emacs, and run `M-x
-;;   eval-buffer'.
+;;   The recommended way to install the package is to utilize Emacs's
+;;   `package.el' along with MELPA. To set this up, please follow MELPA's
+;;   [getting started guide], and then run `M-x package-install
+;;   sql-presto'.
+
+
+;;   [getting started guide] https://melpa.org/#/getting-started
 
 
 ;; * How do I use it?
@@ -35,15 +43,17 @@
 
 ;; * Contributing
 
-;;   Please open GitHub issues and issue pull requests.
+;;   Please open GitHub issues and issue pull requests. Prior to submitting
+;;   a pull-request, please run `make'. This will perform some linting and
+;;   attempt to compile the package.
 
 ;;   I find the packaging requirements for emacs-lisp files to be onerous
 ;;   for code in its home repository (albeit very nice once packaged). As
 ;;   such, the code is "naked" in the sense that it is not wrapped in the
 ;;   requisite comment blocks. These blocks are added in when the package
-;;   is built by pulling from README.org. This has the added benefit of
-;;   maintaining a single source of the truth for things like summaries,
-;;   commentary, and documentation.
+;;   is built by pulling from README.org, and echos in the `Makefile'. This
+;;   has the added benefit of maintaining a single source of the truth for
+;;   things like summaries, commentary, and documentation.
 
 
 ;; * License
@@ -103,4 +113,4 @@ The buffer with name BUFFER will be used or created."
                  :sqli-options 'sql-prestodb-options)
 
 (provide 'sql-prestodb)
-;;; sql-prestodb.el ends here
+;;; sql-presto.el ends here
