@@ -1,4 +1,4 @@
-#+TITLE: sql-prestodb.el
+#+TITLE: sql-presto.el
 #+AUTHOR: Katherine Cox-Buday
 #+OPTIONS: num:nil
 #+OPTIONS: H:0
@@ -15,7 +15,7 @@ The recommended way to install the package is to utilize Emacs's =package.el= al
 
 * How do I use it?
 
-Within Emacs, run =M-x sql-prestodb=. You will be prompted by in the minibuffer for a server. Enter the correct server and you should be greeted by a SQLi buffer with a =presto>= prompt.
+Within Emacs, run =M-x sql-presto=. You will be prompted by in the minibuffer for a server. Enter the correct server and you should be greeted by a SQLi buffer with a =presto>= prompt.
 
 From there you can either type queries in this buffer, or open a =sql-mode= buffer and send chunks of SQL over to the SQLi buffer with the requisite key-chords.
 

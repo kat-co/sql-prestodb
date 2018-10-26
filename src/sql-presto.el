@@ -1,12 +1,12 @@
 (require 'sql)
 
 (defcustom sql-presto-program "presto"
-  "Command to start the PrestoDB command interpreter."
+  "Command to start the Presto command interpreter."
   :type 'file
   :group 'SQL)
 
 (defcustom sql-presto-login-params '(server default-catalog default-schema)
-  "Parameters needed to connect to PrestoDB."
+  "Parameters needed to connect to Presto."
   :type 'sql-login-params
   :group 'SQL)
 
@@ -16,10 +16,10 @@
   :group 'SQL)
 
 (defun sql-presto-comint (product options &optional buffer-name)
-  "Connect to PrestoDB in a comint buffer.
+  "Connect to Presto in a comint buffer.
 
-PRODUCT is the sql product (prestodb). OPTIONS are any additional
-options to pass to prestodb-shell. BUFFER-NAME is what you'd like
+PRODUCT is the sql product (presto). OPTIONS are any additional
+options to pass to presto-shell. BUFFER-NAME is what you'd like
 the SQLi buffer to be named."
   (let ((params (append (unless (string= "" sql-server)
                           `("--server" ,sql-server))
@@ -31,13 +31,13 @@ the SQLi buffer to be named."
     (sql-comint product params buffer-name)))
 
 (defun sql-presto (&optional buffer)
-  "Run PrestoDB as an inferior process.
+  "Run Presto as an inferior process.
 
 The buffer with name BUFFER will be used or created."
   (interactive "P")
-  (sql-product-interactive 'prestodb buffer))
+  (sql-product-interactive 'presto buffer))
 
-(sql-add-product 'prestodb "PrestoDB"
+(sql-add-product 'presto "Presto"
                  :free-software t
                  :list-all "SHOW TABLES;"
                  :list-table "DESCRIBE %s;"
