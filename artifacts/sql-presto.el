@@ -112,5 +112,5 @@ The buffer with name BUFFER will be used or created."
                  :sqli-program 'sql-prestodb-program
                  :sqli-options 'sql-prestodb-options)
 
-(provide 'sql-prestodb)
+(provide 'sql-presto)
 ;;; sql-presto.el ends here
