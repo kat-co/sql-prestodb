@@ -4,6 +4,7 @@
 
 ;; Version: 1.0.0
 ;; Keywords: sql presto database
+;; Package-Requires: ((emacs "24.4"))
 
 ;;; Commentary:
 
@@ -32,7 +33,7 @@
 
 ;; * How do I use it?
 
-;;   Within Emacs, run `M-x sql-prestodb'. You will be prompted by in the
+;;   Within Emacs, run `M-x sql-presto'. You will be prompted by in the
 ;;   minibuffer for a server. Enter the correct server and you should be
 ;;   greeted by a SQLi buffer with a `presto>' prompt.
 

@@ -14,7 +14,7 @@ artifacts/sql-presto.el : Makefile artifacts README.org src/sql-presto.el
 	echo ";; Author: Katherine Cox-Buday <cox.katherine.e@gmail.com>"
 	echo ";; Version: 1.0.0" >> $@
 	echo ";; Keywords: sql presto database" >> $@
-	echo ";; Package-Requires: ((emacs \"24.4\"))"
+	echo ";; Package-Requires: ((emacs \"24.4\"))" >> $@
 	echo >> $@
 	echo -n ";;; Commentary:" >> $@
 	$(EMACS) \
