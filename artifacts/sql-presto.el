@@ -1,14 +1,13 @@
-;;; sql-presto.el --- Adds Presto support to SQLi mode. -*- lexical-binding: t -*-
+;;; sql-presto --- Adds Presto support to SQLi mode. -*- lexical-binding: t -*-
 
 ;; Copyright (C) since 2018 Katherine Cox-Buday
-
+;; Author: Katherine Cox-Buday <cox.katherine.e@gmail.com>
 ;; Version: 1.0.0
 ;; Keywords: sql presto database
-;; Package-Requires: ((emacs "24.4"))
+;; Package-Requires: ((emacs \"24.4\"))
+
 
 ;;; Commentary:
-
-
 ;; * What is it?
 
 ;;   Emacs comes with a SQL interpreter which is able to open a connection
@@ -48,14 +47,6 @@
 ;;   a pull-request, please run `make'. This will perform some linting and
 ;;   attempt to compile the package.
 
-;;   I find the packaging requirements for emacs-lisp files to be onerous
-;;   for code in its home repository (albeit very nice once packaged). As
-;;   such, the code is "naked" in the sense that it is not wrapped in the
-;;   requisite comment blocks. These blocks are added in when the package
-;;   is built by pulling from README.org, and echos in the `Makefile'. This
-;;   has the added benefit of maintaining a single source of the truth for
-;;   things like summaries, commentary, and documentation.
-
 
 ;; * License
 
@@ -94,6 +85,7 @@ the SQLi buffer to be named."
     (setenv "PRESTO_PAGER" "cat")
     (sql-comint product params buffer-name)))
 
+;;;###autoload
 (defun sql-presto (&optional buffer)
   "Run Presto as an inferior process.
 

@@ -1,42 +1,21 @@
 EMACS=emacs -batch
+EMACS_PKG_FLAGS=--eval "(require 'package)" --eval "(package-initialize)"
 
 .PHONY: package
-package: src/sql-presto.elc artifacts/LICENSE artifacts/sql-presto.el static-analysis
+package : src/.static-analysis src/sql-presto.elc artifacts/LICENSE artifacts/sql-presto.el
 
-artifacts/LICENSE: artifacts LICENSE
-	cp LICENSE artifacts
+artifacts/LICENSE : LICENSE
+	cp ./LICENSE artifacts/LICENSE
 
-artifacts/sql-presto.el : Makefile artifacts README.org src/sql-presto.el
-	echo ";;; $(@F) --- Adds Presto support to SQLi mode. -*- lexical-binding: t -*-" > $@
-	echo >> $@
-	echo ";; Copyright (C) since 2018 Katherine Cox-Buday" >> $@
-	echo >> $@
-	echo ";; Author: Katherine Cox-Buday <cox.katherine.e@gmail.com>"
-	echo ";; Version: 1.0.0" >> $@
-	echo ";; Keywords: sql presto database" >> $@
-	echo ";; Package-Requires: ((emacs \"24.4\"))" >> $@
-	echo >> $@
-	echo -n ";;; Commentary:" >> $@
-	$(EMACS) \
-		--visit README.org\
-		--eval "(with-current-buffer \"README.org\" (org-export-to-buffer 'ascii \"*E*\" nil nil nil t nil #'emacs-lisp-mode) (with-current-buffer \"*E*\" (comment-region (point-min) (point-max)) (princ (buffer-string))))" >> $@
-	echo "" >> $@
-	echo ";;; Code:" >> $@
-	cat ./src/sql-presto.el >> $@
-	echo ";;; $(@F) ends here" >> $@
+artifacts/sql-presto.el : src/copy-commentary.el README.org src/sql-presto.el
+	$(EMACS) --load src/copy-commentary.el
 
-artifacts:
-	mkdir artifacts
-
-.PHONY: static-analysis
-static-analysis : artifacts/sql-presto.el
-	$(EMACS) \
-		--eval "(checkdoc-file \"$?\")" \
-		--eval "(package 'package-lint) (package-lint-batch-and-exit)" \
-		--visit $?
+src/.static-analysis : src/sql-presto.el
+	$(EMACS) ${EMACS_PKG_FLAGS} --visit $? --eval "(require 'package-lint)" -f package-lint-buffer
+	touch src/.static-analysis
 
 .PHONY: clean
-clean:
+clean :
 	rm -rf src/*.elc
 	rm -rf artifacts/*
 

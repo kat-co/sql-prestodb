@@ -1,3 +1,16 @@
+;;; sql-presto --- Adds Presto support to SQLi mode. -*- lexical-binding: t -*-
+
+;; Copyright (C) since 2018 Katherine Cox-Buday
+;; Author: Katherine Cox-Buday <cox.katherine.e@gmail.com>
+;; Version: 1.0.0
+;; Keywords: sql presto database
+;; Package-Requires: ((emacs \"24.4\"))
+
+
+;;; Commentary:
+;; $$COMMENTARY$$
+
+;;; Code:
 (require 'sql)
 
 (defcustom sql-presto-program "presto"
@@ -30,6 +43,7 @@ the SQLi buffer to be named."
     (setenv "PRESTO_PAGER" "cat")
     (sql-comint product params buffer-name)))
 
+;;;###autoload
 (defun sql-presto (&optional buffer)
   "Run Presto as an inferior process.
 
@@ -50,3 +64,4 @@ The buffer with name BUFFER will be used or created."
                  :sqli-options 'sql-presto-options)
 
 (provide 'sql-presto)
+;;; sql-presto.el ends here
