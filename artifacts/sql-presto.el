@@ -55,20 +55,25 @@
 ;;; Code:
 (require 'sql)
 
+(defgroup sql-presto nil
+  "Use Presto with sql-interactive mode."
+  :group 'SQL
+  :prefix "sql-presto-")
+
 (defcustom sql-presto-program "presto"
   "Command to start the Presto command interpreter."
   :type 'file
-  :group 'SQL)
+  :group 'sql-presto)
 
 (defcustom sql-presto-login-params '(server default-catalog default-schema)
   "Parameters needed to connect to Presto."
   :type 'sql-login-params
-  :group 'SQL)
+  :group 'sql-presto)
 
 (defcustom sql-presto-options '("--output-format" "CSV_HEADER")
   "List of options for `sql-presto-program'."
   :type '(repeat string)
-  :group 'SQL)
+  :group 'sql-presto)
 
 (defun sql-presto-comint (product options &optional buffer-name)
   "Connect to Presto in a comint buffer.
