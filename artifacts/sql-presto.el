@@ -1,7 +1,8 @@
-;;; sql-presto --- Adds Presto support to SQLi mode. -*- lexical-binding: t -*-
+;;; sql-presto.el --- Adds Presto support to SQLi mode. -*- lexical-binding: t -*-
 
 ;; Copyright (C) since 2018 Katherine Cox-Buday
 ;; Author: Katherine Cox-Buday <cox.katherine.e@gmail.com>
+;; Homepage: https://github.com/kat-co/sql-prestodb
 ;; Version: 1.0.0
 ;; Keywords: sql presto database
 ;; Package-Requires: ((emacs "24.4"))
