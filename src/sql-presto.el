@@ -42,7 +42,7 @@ the SQLi buffer to be named."
   (let ((params (append (unless (string= "" sql-server)
                           `("--server" ,sql-server))
                         (unless (string= "" sql-database)
-                          `("--catalog" sql-database))
+                          `("--catalog" ,sql-database))
                         options)))
     ;; See: https://github.com/prestodb/presto/issues/2907
     (setenv "PRESTO_PAGER" "cat")
