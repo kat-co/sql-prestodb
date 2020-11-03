@@ -68,5 +68,23 @@ The buffer with name BUFFER will be used or created."
                  :sqli-program 'sql-presto-program
                  :sqli-options 'sql-presto-options)
 
+;; It's kind of annoying to get a sql-mode buffer to connect to a SQLi buffer,
+;; so this automates a lot of it.
+;;
+;; this answer helps me understand how to link a sql buffer to a presto SQLi
+;; buffer: https://stackoverflow.com/a/14322667 
+(defun sql-prestofy-buffer ()
+  "Make a generic sql-mode buffer into a connected presto buffer."
+  (interactive)
+  (sql-set-product "presto")
+  (sql-set-sqli-buffer))
+
+(defun sql-presto-scratch ()
+  "Open a scratch buffer that connects to a presto instance."
+  (interactive)
+  (switch-to-buffer "*sql-scratch*")
+  (sql-mode)
+  (sql-prestofy-buffer))
+
 (provide 'sql-presto)
 ;;; sql-presto.el ends here
