@@ -56,6 +56,9 @@ The buffer with name BUFFER will be used or created."
   (interactive "P")
   (sql-product-interactive 'presto buffer))
 
+;; in emacs 27.1, the plist of options needs to be wrapped, like '(:foo "bar"). But even
+;; then, it complains that sql-presto-comint isn't a valid function, so WTF. Stick to
+;; 26.3 for now.
 (sql-add-product 'presto "Presto"
                  :free-software t
                  :list-all "SHOW TABLES;"
@@ -72,7 +75,7 @@ The buffer with name BUFFER will be used or created."
 ;; so this automates a lot of it.
 ;;
 ;; this answer helps me understand how to link a sql buffer to a presto SQLi
-;; buffer: https://stackoverflow.com/a/14322667 
+;; buffer: https://stackoverflow.com/a/14322667
 (defun sql-prestofy-buffer ()
   "Make a generic sql-mode buffer into a connected presto buffer."
   (interactive)
