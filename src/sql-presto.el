@@ -6,10 +6,6 @@
 ;; Keywords: sql presto database
 ;; Package-Requires: ((emacs "24.4"))
 
-
-;;; Commentary:
-;; $$COMMENTARY$$
-
 ;;; Code:
 (require 'sql)
 
@@ -42,7 +38,7 @@ the SQLi buffer to be named."
   (let ((params (append (unless (string= "" sql-server)
                           `("--server" ,sql-server))
                         (unless (string= "" sql-database)
-                          `("--catalog" sql-database))
+                          `("--catalog" ,sql-database))
                         options)))
     ;; See: https://github.com/prestodb/presto/issues/2907
     (setenv "PRESTO_PAGER" "cat")
@@ -57,16 +53,35 @@ The buffer with name BUFFER will be used or created."
   (sql-product-interactive 'presto buffer))
 
 (sql-add-product 'presto "Presto"
-                 :free-software t
-                 :list-all "SHOW TABLES;"
-                 :list-table "DESCRIBE %s;"
-                 :prompt-regexp "^[^>]*> "
-                 :prompt-cont-regexp "^[ ]+-> "
-                 :sqli-comint-func 'sql-presto-comint
-                 :font-lock 'sql-mode-ansi-font-lock-keywords
-                 :sqli-login sql-presto-login-params
-                 :sqli-program 'sql-presto-program
-                 :sqli-options 'sql-presto-options)
+                 '(:free-software t
+                   :list-all "SHOW TABLES;"
+                   :list-table "DESCRIBE %s;"
+                   :prompt-regexp "^[^>]*> "
+                   :prompt-cont-regexp "^[ ]+-> "
+                   :sqli-comint-func sql-presto-comint
+                   :font-lock sql-mode-ansi-font-lock-keywords
+                   :sqli-login sql-presto-login-params
+                   :sqli-program sql-presto-program
+                   :sqli-options sql-presto-options))
+
+;; It's kind of annoying to get a sql-mode buffer to connect to a SQLi buffer,
+;; so this automates a lot of it.
+;;
+;; this answer helps me understand how to link a sql buffer to a presto SQLi
+;; buffer: https://stackoverflow.com/a/14322667
+(defun sql-prestofy-buffer ()
+  "Make a generic sql-mode buffer into a connected presto buffer."
+  (interactive)
+  (sql-set-product "presto")
+  (sql-set-sqli-buffer))
+
+(defun sql-presto-scratch ()
+  "Open a scratch buffer that connects to a presto instance."
+  (interactive)
+  (switch-to-buffer "*sql-scratch*")
+  (sql-mode)
+  (sql-prestofy-buffer)
+  (display-buffer "*sql-scratch*"))
 
 (provide 'sql-presto)
 ;;; sql-presto.el ends here
