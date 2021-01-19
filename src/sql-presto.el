@@ -83,7 +83,8 @@ The buffer with name BUFFER will be used or created."
   (interactive)
   (switch-to-buffer "*sql-scratch*")
   (sql-mode)
-  (sql-prestofy-buffer))
+  (sql-prestofy-buffer)
+  (display-buffer "*sql-scratch*"))
 
 (provide 'sql-presto)
 ;;; sql-presto.el ends here
