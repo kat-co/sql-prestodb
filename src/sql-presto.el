@@ -6,10 +6,6 @@
 ;; Keywords: sql presto database
 ;; Package-Requires: ((emacs "24.4"))
 
-
-;;; Commentary:
-;; $$COMMENTARY$$
-
 ;;; Code:
 (require 'sql)
 
@@ -60,16 +56,16 @@ The buffer with name BUFFER will be used or created."
 ;; then, it complains that sql-presto-comint isn't a valid function, so WTF. Stick to
 ;; 26.3 for now.
 (sql-add-product 'presto "Presto"
-                 :free-software t
-                 :list-all "SHOW TABLES;"
-                 :list-table "DESCRIBE %s;"
-                 :prompt-regexp "^[^>]*> "
-                 :prompt-cont-regexp "^[ ]+-> "
-                 :sqli-comint-func 'sql-presto-comint
-                 :font-lock 'sql-mode-ansi-font-lock-keywords
-                 :sqli-login sql-presto-login-params
-                 :sqli-program 'sql-presto-program
-                 :sqli-options 'sql-presto-options)
+                 '(:free-software t
+                   :list-all "SHOW TABLES;"
+                   :list-table "DESCRIBE %s;"
+                   :prompt-regexp "^[^>]*> "
+                   :prompt-cont-regexp "^[ ]+-> "
+                   :sqli-comint-func sql-presto-comint
+                   :font-lock sql-mode-ansi-font-lock-keywords
+                   :sqli-login sql-presto-login-params
+                   :sqli-program sql-presto-program
+                   :sqli-options sql-presto-options))
 
 ;; It's kind of annoying to get a sql-mode buffer to connect to a SQLi buffer,
 ;; so this automates a lot of it.
