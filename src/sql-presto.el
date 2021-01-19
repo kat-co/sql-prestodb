@@ -52,9 +52,6 @@ The buffer with name BUFFER will be used or created."
   (interactive "P")
   (sql-product-interactive 'presto buffer))
 
-;; in emacs 27.1, the plist of options needs to be wrapped, like '(:foo "bar"). But even
-;; then, it complains that sql-presto-comint isn't a valid function, so WTF. Stick to
-;; 26.3 for now.
 (sql-add-product 'presto "Presto"
                  '(:free-software t
                    :list-all "SHOW TABLES;"
